@@ -42,7 +42,6 @@ const getRandomInteger = (min, max) => {
 // случайное неповторяющееся число из диапазона
 const getGeneratedFromToUniq = (min, max) => {
   const previousValues = [];
-  
   return function () {
     let currentValue = getRandomInteger (min, max);
     while (previousValues.includes(currentValue)) {
@@ -50,24 +49,23 @@ const getGeneratedFromToUniq = (min, max) => {
     };
     previousValues.push(currentValue);
     return currentValue;
-  };
+  }
 };
 
 // обёртка для случайного числа из диапазона (с повторениями)
 const getGeneratedFromTo = (min, max) => {
   return function () {
     return getRandomInteger(min, max);
-  };
+  }
 };
 
 // случайные объекты из массива (с повторениями)
 const getElementArray = (anyArray) => {
   const arrayObjects = anyArray;
-  
   return function () {
     const randomIndex = Math.floor(Math.random() * arrayObjects.length);
     return arrayObjects[randomIndex];
-  };
+  }
 };
 
 // генераторы данных
@@ -104,11 +102,5 @@ const getPhotos = Array.from ({length: PHOTOS_NUMBER}, (_, i) => ({
   likes: randomLikes(),
   comments: createCommentsArray()
 }));
-
-// ГЛУБИНА ОТОБРАЖЕНИЯ В НОДЕ
-const util = require('util');
-util.inspect.defaultOptions.depth = 3;
-util.inspect.defaultOptions.colors = true;
-// ГЛУБИНА ОТОБРАЖЕНИЯ В НОДЕ
 
 console.log(getPhotos);
