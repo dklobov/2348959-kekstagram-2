@@ -53,8 +53,7 @@ const getGeneratedFromToUniq = (min, max) => {
 };
 
 // обёртка для случайного числа из диапазона (с повторениями)
-const getGeneratedFromTo = (min, max) => 
-  () => getRandomInteger(min, max);
+const getGeneratedFromTo = (min, max) => () => getRandomInteger(min, max);
 
 // случайные объекты из массива (с повторениями)
 const getElementArray = (anyArray) => {
@@ -100,4 +99,4 @@ const getPhotos = Array.from ({length: PHOTOS_NUMBER}, (_, i) => ({
   comments: createCommentsArray()
 }));
 
-getPhotos();
+console.log(getPhotos);
