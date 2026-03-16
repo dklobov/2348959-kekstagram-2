@@ -5,7 +5,7 @@ const COMMENTS = [
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
-]
+];
 const NAMES = [
   'Виктория',
   'Артём',
@@ -14,7 +14,7 @@ const NAMES = [
   'Василий',
   'Екатерина',
   'Иван'
-]
+];
 const DESCRIPTIONS = [
   'Величественные горы',
   'Сумасшедшая скоростная автострада',
@@ -23,7 +23,7 @@ const DESCRIPTIONS = [
   'Романтика деревенской жизни',
   'Курица или яйцо? - вот в чём вопрос',
   'Иван был пьян, играл на фортепиан'
-]
+];
 const MIN_COMMENTS = 0;
 const MAX_COMMENTS = 30;
 const MIN_LIKES = 15;
@@ -37,7 +37,7 @@ const getRandomInteger = (min, max) => {
   const result = Math.random() * (upper - lower + 1) + lower;
 
   return Math.floor(result);
-}
+};
 
 // случайное неповторяющееся число из диапазона
 const getGeneratedFromToUniq = (min, max) => {
@@ -51,14 +51,14 @@ const getGeneratedFromToUniq = (min, max) => {
     previousValues.push(currentValue);
     return currentValue;
   };
-}
+};
 
 // обёртка для случайного числа из диапазона (с повторениями)
 const getGeneratedFromTo = (min, max) => {
   return function () {
     return getRandomInteger(min, max);
   };
-}
+};
 
 // случайные объекты из массива (с повторениями)
 const getElementArray = (anyArray) => {
@@ -68,7 +68,7 @@ const getElementArray = (anyArray) => {
     const randomIndex = Math.floor(Math.random() * arrayObjects.length);
     return arrayObjects[randomIndex];
   };
-}
+};
 
 // генераторы данных
 const photosId = getGeneratedFromToUniq (1, 25);
@@ -88,13 +88,13 @@ const createComment = () => ({
   avatar: `img/avatar-${avatarId()}.svg`,
   message: randomComment(),
   name: randomName()
-})
+});
 
 // создание массива комментов
 const createCommentsArray = () => {
   const count = commentCount();
   return Array.from ({length: count}, () => createComment());
-}
+};
 
 // ЗАДАНИЕ: массив фотографий с массивом комментариев
 const getPhotos = Array.from ({length: PHOTOS_NUMBER}, (_, i) => ({
@@ -104,8 +104,6 @@ const getPhotos = Array.from ({length: PHOTOS_NUMBER}, (_, i) => ({
   likes: randomLikes(),
   comments: createCommentsArray()
 }));
-
-
 
 // ГЛУБИНА ОТОБРАЖЕНИЯ В НОДЕ
 const util = require('util');
