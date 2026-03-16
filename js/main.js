@@ -91,7 +91,7 @@ const createCommentsArray = () => {
 };
 
 // ЗАДАНИЕ: массив фотографий с массивом комментариев
-const getPhotos = Array.from ({length: PHOTOS_NUMBER}, (_, i) => ({
+const getPhotos () => Array.from ({length: PHOTOS_NUMBER}, (_, i) => ({
   id: photosId(),
   url: `photos/${i + 1}.jpg`,
   description: randomDescription(),
