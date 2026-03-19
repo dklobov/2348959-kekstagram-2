@@ -1,14 +1,14 @@
 // setup.js — связывание утилит с данными, создание генератора фото
 
-import { 
-  getRandomInteger, 
-  getGeneratedFromToUniq, 
-  getGeneratedFromTo, 
-  getElementArray 
+import {
+  getRandomInteger,
+  getGeneratedFromToUniq,
+  getGeneratedFromTo,
+  getElementArray
 } from './util.js';
 
 // импорт диапазонов и массивов данных
-import { 
+import {
   MIN_COMMENTS, MAX_COMMENTS,
   MIN_LIKES, MAX_LIKES,
   PHOTOS_NUMBER,
