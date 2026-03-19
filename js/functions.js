@@ -1,9 +1,8 @@
 const timeToMins = (dayStart, dayEnd, meetStart, meetDuring) => {
   const timeArray = [dayStart, dayEnd, meetStart, meetDuring];
-  const splitTimeArray = timeArray.slice(0, -1).map(stringTime => stringTime.split(':'));
-  const mins = splitTimeArray.map (innerTime => (parseInt(innerTime[0]) * 60) + parseInt(innerTime[1]));
-  mins.push(parseInt(timeArray[timeArray.length - 1]));
-  
+  const splitTimeArray = timeArray.slice(0, -1).map((stringTime) => stringTime.split(':'));
+  const mins = splitTimeArray.map ((innerTime) => (parseInt(innerTime[0], 10) * 60) + parseInt(innerTime[1], 10));
+  mins.push(parseInt(timeArray[timeArray.length - 1], 10));
   return (mins[2] >= mins[0] && mins[2] < mins[1] && (mins[2] + mins[3]) <= mins[1]);
 };
 
