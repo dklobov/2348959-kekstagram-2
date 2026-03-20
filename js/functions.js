@@ -1,33 +1,30 @@
-// function countLength (inputText, maxLength) {
-//   return inputText.length <= maxLength;
-// }
+// мой итоговый вариант задания
+/* const timeToMins = (dayStart, dayEnd, meetStart, meetDuring) => {
+  const timeArray = [dayStart, dayEnd, meetStart, meetDuring];
+  const splitTimeArray = timeArray.slice(0, -1).map((stringTime) => stringTime.split(':'));
+  const mins = splitTimeArray.map ((innerTime) => (parseInt(innerTime[0], 10) * 60) + parseInt(innerTime[1], 10));
+  mins.push(parseInt(timeArray[timeArray.length - 1], 10));
+  return (mins[2] >= mins[0] && mins[2] < mins[1] && (mins[2] + mins[3]) <= mins[1]);
+}; */
 
-// // console.log(countLength('проверяемая строка', 20));
-// // console.log(countLength('проверяемая строка', 18));
-// // console.log(countLength('проверяемая строка', 10));
+// после рефакторинга с наставником
+const timeToMins = (dayStart, dayEnd, meetStart, meetDuring) => {
+  const timeArray = [dayStart, dayEnd, meetStart];
+  const splitTimeArray = timeArray.map((stringTime) => stringTime.split(':'));
+  const mins = splitTimeArray.map((innerTime) => (parseInt(innerTime[0], 10) * 60) + parseInt(innerTime[1], 10));
+  const [start, end, startMeet] = mins;
+  const endMeet = parseInt(meetDuring, 10) + startMeet;
+  return startMeet >= start && endMeet <= end ;
+};
 
+timeToMins('08:00', '17:30', '14:00', 90);
+timeToMins('8:0', '10:0', '8:0', 120);
+timeToMins('08:00', '14:30', '14:00', 90);
+timeToMins('14:00', '17:30', '08:0', 90);
+timeToMins('8:00', '17:30', '08:00', 900);
 
-// function isPalindrom (inputPalindrom) {
-//   const normalized = inputPalindrom.replaceAll(' ', '').toLowerCase();
-//   const reversed = normalized.split('').reverse().join('');
-//   return normalized === reversed;
-// }
-// // console.log(isPalindrom('проверяемая строка'));
-// // console.log(isPalindrom('А роза упала на лапу Азора'));
-
-
-// function getNumbers (someText) {
-//   const stringText = someText.toString().replaceAll(' ', '');
-//   let numbersString = '';
-//   for (let i = 0; i <= stringText.length; i++) {
-//     if (stringText[i] >= 0 && stringText[i] <= 9) {
-//       numbersString += stringText[i];
-//     }
-//   }
-//   return numbersString;
-// }
-// // console.log(getNumbers('2023 год'));
-// // console.log(getNumbers('ECMAScript 2022'));
-// // console.log(getNumbers('1 кефир, 0.5 батона'));
-// // console.log(getNumbers('агент 007'));
-// // console.log(getNumbers('а я томат'));
+//   console.log(timeToMins('08:00', '17:30', '14:00', 90));
+//   console.log(timeToMins('8:0', '10:0', '8:0', 120));
+//   console.log(timeToMins('08:00', '14:30', '14:00', 90));
+//   console.log(timeToMins('14:00', '17:30', '08:0', 90));
+//   console.log(timeToMins('8:00', '17:30', '08:00', 900));
