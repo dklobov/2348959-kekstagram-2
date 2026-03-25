@@ -19,7 +19,7 @@ import {
 
 // создание генераторов (единожды при загрузке модуля)
 const photosId = getGeneratedFromToUniq(MIN_PHOTO_ID, MAX_PHOTO_ID);
-const photoURL = getGeneratedFromTo(MIN_PHOTO_ID, MAX_PHOTO_ID);
+const photoURL = getGeneratedFromToUniq(MIN_PHOTO_ID, MAX_PHOTO_ID);
 const commentId = getGeneratedFromToUniq(1, 9999);
 const avatarId = getGeneratedFromTo(MIN_AVATAR_ID, MAX_AVATAR_ID);
 const getURL = () => `photos/${photoURL()}.jpg`;
