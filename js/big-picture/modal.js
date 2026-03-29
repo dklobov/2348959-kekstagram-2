@@ -4,23 +4,22 @@ const body = document.body;
 const modalPicture = document.querySelector('.big-picture');
 const closeButton = modalPicture.querySelector('#picture-cancel');
 const fullPicture = document.querySelector('.big-picture__img img');
-// const captionPicture = document.querySelector('.big-picture__social p');
 const captionPicture = document.querySelector('.social__caption');
 const likesPicture = modalPicture.querySelector('.likes-count');
-const shownCommentsPicture = modalPicture.querySelector('.social__comment-shown-count');
-const totalCommentsPicture = modalPicture.querySelector('.social__comment-total-count');
-const socialCommentsCount = modalPicture.querySelector('.social__comment-count');
+const сommentsShownCount = modalPicture.querySelector('.social__comment-shown-count');
+const сommentsTotalCount = modalPicture.querySelector('.social__comment-total-count');
 const socialComments = document.querySelector('.social__comments');
 const socialCommentTemplate = socialComments.querySelector('.social__comment');
-const commentsLoader = document.querySelector('.comments-loader');
+const commentsLoader = modalPicture.querySelector('.comments-loader');
+const STEP_COMMENTS = 5; // шаг "дозагрузки" комментариев
+let currentComments = []; // комментарии конкретной открытой фотографии фото.comments
+let shownComments = 0; // количество отрисованных комментариев в точке 0
 
 
 // функция появления модалки + отключение скроллинга под ней
 const showModal = (isVisible = true) => {
   if (isVisible) {
     document.addEventListener('keydown', onDocumentKeydown);
-    socialCommentsCount.classList.add('hidden');
-    commentsLoader.classList.add('hidden');
   } else {
     document.removeEventListener('keydown', onDocumentKeydown);
   }
@@ -48,43 +47,51 @@ const render = (picture) => {
   fullPicture.src = picture.url;
   captionPicture.textContent = picture.description;
   likesPicture.textContent = picture.likes;
-  shownCommentsPicture.textContent = picture.comments.length;
-  totalCommentsPicture.textContent = picture.comments.length; /* порнография */
+  сommentsShownCount.textContent = 0;
+  сommentsTotalCount.textContent = picture.comments.length;
+};
+
+// отрисовка порции из 5 комментариев
+const renderCommentsPortion = () => {
+  const nextCount = shownComments + STEP_COMMENTS;
+  const portionFragment = document.createDocumentFragment();
+
+  currentComments
+    .slice(shownComments, nextCount)
+    .forEach(({ avatar, message, name }) => {
+      const li = socialCommentTemplate.cloneNode(true);
+      const img = li.querySelector('.social__picture');
+      const textComment = li.querySelector('.social__text');
+
+      img.src = avatar;
+      img.alt = name;
+      textComment.textContent = message;
+
+      portionFragment.append(li);
+    });
+
+  socialComments.append(portionFragment);
+
+  shownComments = Math.min(nextCount, currentComments.length);
+  сommentsShownCount.textContent = shownComments;
+
+  if (shownComments >= currentComments.length) {
+    commentsLoader.classList.add('hidden');
+  }
 };
 
 // отрисовка массива комментариев для модалки
 const comments = (commentsArray) => {
   socialComments.innerHTML = '';
-  const commentsFragment = document.createDocumentFragment();
-  commentsArray.forEach(({ avatar, message, name }) => {
-    const li = socialCommentTemplate.cloneNode(true);
-    const img = li.querySelector('.social__picture');
-    const textComment = li.querySelector('.social__text');
+  currentComments = commentsArray;
+  shownComments = 0;
 
-    img.src = avatar;
-    img.alt = name;
-    textComment.textContent = message;
+  commentsLoader.classList.toggle('hidden', currentComments.length <= STEP_COMMENTS);
 
-    commentsFragment.append(li);
-  });
-  socialComments.append(commentsFragment);
+  renderCommentsPortion();
 };
 
-// const publishedComments = picture.comments.map(({ avatar, message }) => (
-//   {avatar, message}));
-
-// const publishedComments = (picture) => {
-
-// publishedComments.forEach(({avatar, message}) => {
-//   const li = document.createElement('li');
-//   li.classList.add('social__comment');
-//   li.innerHTML = `
-//   <img class="social__picture" src="${avatar}" alt="Аватар комментатора фотографии" width="35" height="35">
-//   <p class="social__text">${message}</p>
-// `;
-//   socialComments.append(li);
-// });
-// };
+commentsLoader.addEventListener('click', renderCommentsPortion);
 
 export const openModal = (photo) => {
   showModal();
