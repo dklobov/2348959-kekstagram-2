@@ -5,7 +5,7 @@ import { renderPhotos } from './features/gallery-render.js';
 import { initGalleryModal } from './features/gallery-init.js';
 
 import './features/upload-modal.js';
-import './features/upload-form.js';
+import './features/upload-validation.js';
 
 const photos = getPhotos();
 renderPhotos(photos);
