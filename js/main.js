@@ -1,10 +1,12 @@
-import { getPhotos } from './setup.js';
-import { renderPhotos } from './render-photos.js';
-import { PHOTOS_NUMBER } from './data.js';
-import { initModal } from './big-picture/init-modal.js';
-import './upload-photo.js';
-import './form.js';
+// точка входа: getPhotos, рендер галереи, initGalleryModal, подключение upload-части
 
-const photos = getPhotos(PHOTOS_NUMBER);
+import { getPhotos } from './core/photos-generator.js';
+import { renderPhotos } from './features/gallery-render.js';
+import { initGalleryModal } from './features/gallery-init.js';
+
+import './features/upload-modal.js';
+import './features/upload-form.js';
+
+const photos = getPhotos();
 renderPhotos(photos);
-initModal(photos);
+initGalleryModal(photos);
