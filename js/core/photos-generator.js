@@ -1,4 +1,4 @@
-// setup.js — связывание утилит с данными, создание генератора фото
+// генерация массива фото с комментариями
 
 import {
   getRandomInteger,
@@ -44,10 +44,13 @@ const createCommentsArray = () => {
 };
 
 // ГЛАВНАЯ ФУНКЦИЯ: создание массива фотографий с массивом комментариев
-export const getPhotos = () => Array.from ({length: PHOTOS_NUMBER}, () => ({
-  id: photosId(),
-  url: getURL(),
-  description: randomDescription(),
-  likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
-  comments: createCommentsArray()
-}));
+export const getPhotos = () => Array.from(
+  { length: PHOTOS_NUMBER },
+  () => ({
+    id: photosId(),
+    url: getURL(),
+    description: randomDescription(),
+    likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
+    comments: createCommentsArray()
+  })
+);

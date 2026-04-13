@@ -1,4 +1,6 @@
-// границы диапазонов и массивы данных
+
+// константы, диапазоны, тексты
+
 export const COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -37,3 +39,6 @@ export const MIN_PHOTO_ID = 1;
 export const MAX_PHOTO_ID = 25;
 export const MIN_AVATAR_ID = 1;
 export const MAX_AVATAR_ID = 6;
+
+export const MAX_DESCRIPTION = 140;
+export const HASTAG_FORMULA = /^#[a-zа-я0-9]{1,19}/i;

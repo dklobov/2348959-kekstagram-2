@@ -1,6 +1,11 @@
-import { picturesContainer } from './big-picture/init-modal.js';
+// отрисовка превьюшек в .pictures
 
-const onePhotoTemplate = document.querySelector('#picture').content.querySelector('.picture');
+import { picturesContainer } from './gallery-init.js';
+
+const onePhotoTemplate = document
+  .querySelector('#picture')
+  .content
+  .querySelector('.picture');
 
 export const renderPhotos = (photos) => {
   const compiledPhotoCards = document.createDocumentFragment();
