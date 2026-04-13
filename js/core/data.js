@@ -40,5 +40,56 @@ export const MAX_PHOTO_ID = 25;
 export const MIN_AVATAR_ID = 1;
 export const MAX_AVATAR_ID = 6;
 
+export const MAX_COUNT_HASHTAGS = 5;
 export const MAX_DESCRIPTION = 140;
 export const HASTAG_FORMULA = /^#[a-zа-я0-9]{1,19}/i;
+
+export const SCALE_STEP = 25;
+export const SCALE_MIN = 25;
+export const SCALE_MAX = 100;
+
+export const EFFECT_SETTINGS = {
+  none: {
+    min: 0,
+    max: 100,
+    step: 1,
+    start: 100,
+    // при эффекте none фильтр не применяется
+    apply: () => 'none',
+  },
+  chrome: {
+    min: 0,
+    max: 1,
+    step: 0.1,
+    start: 1,
+    apply: (value) => `grayscale(${value})`, // 0–1
+  },
+  sepia: {
+    min: 0,
+    max: 1,
+    step: 0.1,
+    start: 1,
+    apply: (value) => `sepia(${value})`,
+  },
+  marvin: {
+    min: 0,
+    max: 100,
+    step: 1,
+    start: 100,
+    apply: (value) => `invert(${value}%)`,
+  },
+  phobos: {
+    min: 0,
+    max: 3,
+    step: 0.1,
+    start: 3,
+    apply: (value) => `blur(${value}px)`,
+  },
+  heat: {
+    min: 1,
+    max: 3,
+    step: 0.1,
+    start: 3,
+    apply: (value) => `brightness(${value})`,
+  },
+};
