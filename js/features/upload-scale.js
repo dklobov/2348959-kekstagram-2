@@ -1,5 +1,3 @@
-// масштабирование в модалке загрузки
-
 import {
   SCALE_STEP,
   SCALE_MIN,
@@ -13,16 +11,32 @@ const scaleValue = imgUploadScale.querySelector('.scale__control--value');
 
 const previewImage = document.querySelector('.img-upload__preview img');
 
-// текущий масштаб в %
-let currentScale = 100;
+let currentScale = SCALE_MAX;
 
-// применение масштаба к инпуту/картинке
-const applyScale = () => {
-  scaleValue.value = `${currentScale}%`;
-  previewImage.style.transform = `scale(${currentScale / 100})`;
+const setScaleButtonState = (button, isDisabled) => {
+  button.disabled = isDisabled;
+  button.style.pointerEvents = isDisabled ? 'none' : '';
+  button.style.cursor = isDisabled ? 'default' : '';
+
+  if (isDisabled) {
+    button.blur();
+  }
 };
 
-// минус-масштабирование (но не ниже SCALE_MIN)
+const updateButtonsState = () => {
+  const isAtMin = currentScale === SCALE_MIN;
+  const isAtMax = currentScale === SCALE_MAX;
+
+  setScaleButtonState(scaleSmaller, isAtMin);
+  setScaleButtonState(scaleBigger, isAtMax);
+};
+
+const applyScale = () => {
+  scaleValue.value = `${currentScale}%`;
+  previewImage.style.transform = `scale(${currentScale}%)`;
+  updateButtonsState();
+};
+
 const onSmallerClick = () => {
   if (currentScale > SCALE_MIN) {
     currentScale -= SCALE_STEP;
@@ -30,7 +44,6 @@ const onSmallerClick = () => {
   }
 };
 
-// плюс-масштабирование (но не выше SCALE_MAX)
 const onBiggerClick = () => {
   if (currentScale < SCALE_MAX) {
     currentScale += SCALE_STEP;
@@ -38,15 +51,12 @@ const onBiggerClick = () => {
   }
 };
 
-// сброс масштаба к дефолтному (100%) при открытии модалки
 export const resetScale = () => {
-  currentScale = 100;
+  currentScale = SCALE_MAX;
   applyScale();
 };
 
-// обработчики на + / -
 scaleSmaller.addEventListener('click', onSmallerClick);
 scaleBigger.addEventListener('click', onBiggerClick);
 
-// инициализация зачение при загрузке
 applyScale();
