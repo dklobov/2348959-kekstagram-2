@@ -14,14 +14,10 @@ const request = async (route, method = Method.GET, body = null) => {
     method,
     body,
   });
-
   if (!response.ok) {
     throw new Error(`Ошибка загрузки: ${response.status} ${response.statusText}`);
   }
-
-  if (method === Method.GET) {
-    return response.json();
-  }
+  if (method === Method.GET) return response.json();
 
   return response;
 };
