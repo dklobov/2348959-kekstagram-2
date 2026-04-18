@@ -16,11 +16,10 @@ export const renderPhotos = (photos) => {
 
     cardImg.src = photo.url;
     cardImg.alt = photo.description;
-    cardComments.textContent = photo.comments.length;
     cardLikes.textContent = photo.likes;
+    cardComments.textContent = photo.comments.length;
 
     onePhoto.dataset.id = photo.id;
-
     compiledPhotoCards.append(onePhoto);
   });
 
