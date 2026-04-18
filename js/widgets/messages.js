@@ -1,10 +1,20 @@
-import { isEscape } from '../core/util.js';
+import { TIMEOUT_FIVESEC, Messages } from '../core/data.js';
+import { createModalController } from './modal-controller.js';
 
-let isModalMessageOpen = false;
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const body = document.body;
+
+const templates = {
+  [Messages.SUCCESS]: successTemplate,
+  [Messages.ERROR]: errorTemplate
+};
 
 const renderMessageFromTemplate = (templateId) => {
   const template = document.querySelector(`#${templateId}`);
-  if (!template) {return null};
+  if (!template) {
+    return null;
+  }
   const messageFragment = template.content.cloneNode(true);
   const element = messageFragment.firstElementChild;
   document.body.append(element);
@@ -17,47 +27,21 @@ export const showDataError = () => {
     console.error('Шаблон #data-error не найден в разметке');
     return;
   }
-  setTimeout(() => messageElement.remove(), 5000);
+  setTimeout(() => messageElement.remove(), TIMEOUT_FIVESEC);
 };
 
-const setClosableMessageHandlers = (messageElement, buttonSelector) => {
-  const button = messageElement.querySelector(buttonSelector);
-  isModalMessageOpen = true;
-  const onButtonClick = () => close();
-  const onDocumentClick = (evt) => {
-    if (!messageElement.contains(evt.target)) {close()}
-  };
-  const onDocumentKeydown = (evt) => {
-    if (isEscape(evt)) {close()}
-  };
+export const showMessage = (type) => {
+  const message = templates[type].cloneNode(true);
 
-  function close() {
-    messageElement.remove();
-    document.removeEventListener('click', onDocumentClick);
-    document.removeEventListener('keydown', onDocumentKeydown);
-    if (button) {
-      button.removeEventListener('click', onButtonClick);
+  const actionsMessage = createModalController({
+    modalElement: message,
+    closeModal: () => message.remove()
+  });
+  actionsMessage.open();
+  body.append(message);
+  message.addEventListener('click', ({ target }) => {
+    if (target.classList.contains(type) || target.classList.contains(`${type}__button`)) {
+      actionsMessage.close();
     }
-    isModalMessageOpen = false;
-  }
-
-  if (button) {
-    button.addEventListener('click', onButtonClick);
-  }
-  document.addEventListener('click', onDocumentClick);
-  document.addEventListener('keydown', onDocumentKeydown);
-};
-
-export const showSuccessMessage = () => {
-  if (isModalMessageOpen) return;
-  const messageElement = renderMessageFromTemplate('success');
-  if (!messageElement) return;
-  setClosableMessageHandlers(messageElement, '.success__button');
-};
-
-export const showErrorMessage = () => {
-  if (isModalMessageOpen) return;
-  const messageElement = renderMessageFromTemplate('error');
-  if (!messageElement) return;
-  setClosableMessageHandlers(messageElement, '.error__button');
+  });
 };
