@@ -1,4 +1,5 @@
 import { getPhotos } from './core/api.js';
+import { showFilters } from './core/data.js';
 import { renderPhotos } from './features/gallery-render.js';
 import { showDataError } from './widgets/messages.js';
 import { initGalleryModal } from './features/gallery-init.js';
@@ -9,9 +10,11 @@ import './features/upload-modal.js';
 import './features/upload-scale.js';
 import './features/upload-effects.js';
 
+
 const initApp = async () => {
   try {
     const photos = await getPhotos();
+    showFilters();
     renderPhotos(photos);
     initGalleryModal(photos);
   } catch (err) {
