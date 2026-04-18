@@ -31,3 +31,11 @@ export const getElementArray = (anyArray) => {
 };
 
 export const isEscape = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+export const debounce = (callback, delay = 500) => {
+  let timeoutId = 0;
+  return (...arguments) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback(...arguments), delay);
+  };
+};
