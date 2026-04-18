@@ -33,9 +33,9 @@ export const getElementArray = (anyArray) => {
 export const isEscape = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 export const debounce = (callback, delay = 500) => {
-  let timeoutId = 0;
-  return (...arguments) => {
+  let timeoutId;
+  return (...argumentsArray) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback(...arguments), delay);
+    timeoutId = setTimeout(() => callback(...argumentsArray), delay);
   };
 };
