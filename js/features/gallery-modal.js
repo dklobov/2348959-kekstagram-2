@@ -5,13 +5,13 @@ const STEP_COMMENTS = 5;
 const modalPicture = document.querySelector('.big-picture');
 const closeButton = modalPicture.querySelector('#picture-cancel');
 const fullPicture = modalPicture.querySelector('.big-picture__img img');
-const captionPicture = modalPicture.querySelector('.social__caption');
 const likesPicture = modalPicture.querySelector('.likes-count');
+const captionPicture = modalPicture.querySelector('.social__caption');
+const socialComments = modalPicture.querySelector('.social__comments');
+const commentsLoader = modalPicture.querySelector('.comments-loader');
 const commentsShownCount = modalPicture.querySelector('.social__comment-shown-count');
 const commentsTotalCount = modalPicture.querySelector('.social__comment-total-count');
-const socialComments = modalPicture.querySelector('.social__comments');
 const socialCommentTemplate = socialComments.querySelector('.social__comment');
-const commentsLoader = modalPicture.querySelector('.comments-loader');
 
 let currentComments = [];
 let shownComments = 0;
@@ -23,8 +23,8 @@ const pictureModal = createModalController({
 
 const renderPhoto = (picture) => {
   fullPicture.src = picture.url;
-  captionPicture.textContent = picture.description;
   likesPicture.textContent = picture.likes;
+  captionPicture.textContent = picture.description;
   commentsTotalCount.textContent = picture.comments.length;
 };
 
@@ -64,9 +64,7 @@ const renderComments = (comments) => {
   renderCommentsPortion();
 };
 
-const onLoaderClick = () => {
-  renderCommentsPortion();
-};
+const onLoaderClick = () => renderCommentsPortion();
 
 commentsLoader.addEventListener('click', onLoaderClick);
 
