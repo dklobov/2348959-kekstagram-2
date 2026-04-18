@@ -18,9 +18,7 @@ const setScaleButtonState = (button, isDisabled) => {
   button.style.pointerEvents = isDisabled ? 'none' : '';
   button.style.cursor = isDisabled ? 'default' : '';
 
-  if (isDisabled) {
-    button.blur();
-  }
+  if (isDisabled) {button.blur()}
 };
 
 const updateButtonsState = () => {
@@ -34,12 +32,14 @@ const updateButtonsState = () => {
 const applyScale = () => {
   scaleValue.value = `${currentScale}%`;
   previewImage.style.transform = `scale(${currentScale}%)`;
+
   updateButtonsState();
 };
 
 const onSmallerClick = () => {
   if (currentScale > SCALE_MIN) {
     currentScale -= SCALE_STEP;
+
     applyScale();
   }
 };
@@ -47,12 +47,14 @@ const onSmallerClick = () => {
 const onBiggerClick = () => {
   if (currentScale < SCALE_MAX) {
     currentScale += SCALE_STEP;
+
     applyScale();
   }
 };
 
 export const resetScale = () => {
   currentScale = SCALE_MAX;
+
   applyScale();
 };
 
