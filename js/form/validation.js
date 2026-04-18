@@ -18,19 +18,25 @@ const getHashtags = (value) => value.toLowerCase().split(' ').filter((item) => i
 const checkDescription = (value) => value.length <= MAX_DESCRIPTION;
 
 const checkHashtags = (value) => {
-  if(!value.trim().length) return true;
+  if(!value.trim().length) {
+    return true;
+  }
   const hashtags = getHashtags(value);
   return hashtags.every((item) => HASTAG_FORMULA.test(item));
 };
 
 const checkHashtagsLength = (value) => {
-  if(!value.trim().length) return true;
+  if(!value.trim().length) {
+    return true;
+  }
   const hashtags = getHashtags(value);
   return hashtags.length <= MAX_COUNT_HASHTAGS;
 };
 
 const checkHashtagsUnique = (value) => {
-  if (!value.trim().length) return true;
+  if (!value.trim().length) {
+    return true;
+  }
   const hashtags = getHashtags(value);
   return hashtags.every((hashtag, index, array) => array.indexOf(hashtag) === index);
 };

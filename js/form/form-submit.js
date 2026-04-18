@@ -1,12 +1,14 @@
 import { sendForm } from '../core/api.js';
+import { Messages } from '../core/data.js';
+import { showMessage} from '../widgets/messages.js';
 import { resetScale } from '../features/upload-scale.js';
 import { resetEffects } from '../features/upload-effects.js';
 import { closeUploadModal } from '../features/upload-modal.js';
 import { isValid, resetValidation } from './validation.js';
-import { showErrorMessage, showSuccessMessage } from '../widgets/messages.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
+const closeButton = document.querySelector('.img-upload__cancel');
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -18,27 +20,32 @@ const setSubmitButtonState = (isDisable) => {
   submitButton.textContent = isDisable ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
 };
 
-const resetFormState = () => {
+export function resetFormState () {
   uploadForm.reset();
   resetScale();
   resetEffects();
   resetValidation();
-  closeUploadModal();
 };
+
+closeButton.addEventListener('click', () => {
+  closeUploadModal();
+});
 
 const onFormSubmit = async (evt) => {
   evt.preventDefault();
-  if (!isValid()) return;
+  if (!isValid()) {
+    return;
+  }
   const formData = new FormData(uploadForm);
 
   try {
     setSubmitButtonState(true);
     await sendForm(formData);
-    resetFormState();
-    showSuccessMessage();
+    closeUploadModal();
+    showMessage(Messages.SUCCESS);
   } catch (err) {
     console.error(err);
-    showErrorMessage();
+    showMessage(Messages.ERROR);
   } finally {
     setSubmitButtonState(false);
   }

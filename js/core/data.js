@@ -1,31 +1,13 @@
-export const COMMENTS = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
-];
+export const Messages = {
+  SUCCESS: 'success',
+  ERROR: 'error'
+}
 
-export const NAMES = [
-  'Виктория',
-  'Артём',
-  'Дмитрий',
-  'Яна',
-  'Василий',
-  'Екатерина',
-  'Иван'
-];
-
-export const DESCRIPTIONS = [
-  'Величественные горы',
-  'Сумасшедшая скоростная автострада',
-  'Мои кулинарные изыски',
-  'Реки, озёра, горы и альпаки',
-  'Романтика деревенской жизни',
-  'Курица или яйцо? - вот в чём вопрос',
-  'Иван был пьян, играл на фортепиан'
-];
+export const FILTERS = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed'
+};
 
 export const MIN_COMMENTS = 0;
 export const MAX_COMMENTS = 30;
@@ -116,7 +98,4 @@ export const EFFECT_SETTINGS = {
   },
 };
 
-export const imgFilters = document.querySelector('.img-filters');
-export const showFilters = () => {
-  imgFilters.classList.remove('img-filters--inactive');
-};
+export const TIMEOUT_FIVESEC = 5000;

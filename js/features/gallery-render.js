@@ -5,9 +5,15 @@ const onePhotoTemplate = document
   .content
   .querySelector('.picture');
 
+const clear = () => {
+  document.querySelectorAll('.picture').forEach((card) => {
+    card.remove();
+  });
+};
+
 export const renderPhotos = (photos) => {
   const compiledPhotoCards = document.createDocumentFragment();
-
+  clear();
   photos.forEach((photo) => {
     const onePhoto = onePhotoTemplate.cloneNode(true);
     const cardImg = onePhoto.querySelector('.picture__img');
@@ -22,6 +28,5 @@ export const renderPhotos = (photos) => {
     onePhoto.dataset.id = photo.id;
     compiledPhotoCards.append(onePhoto);
   });
-
   picturesContainer.append(compiledPhotoCards);
 };

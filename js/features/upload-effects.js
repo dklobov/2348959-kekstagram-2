@@ -43,7 +43,9 @@ export const resetEffects = () => {
 
 const onEffectChange = ({ target }) => {
 
-  if (!target.classList.contains('effects__radio')) return;
+  if (!target.classList.contains('effects__radio')) {
+    return;
+  }
   currentEffect = target.value;
   if (currentEffect === DEFAULT_EFFECTS) {
     resetEffects();
@@ -52,8 +54,9 @@ const onEffectChange = ({ target }) => {
 
   showSlider();
 
-  effectLevelSlider.noUiSlider.updateOptions(slider);
+  effectLevelSlider.noUiSlider.updateOptions(EFFECT_SETTINGS[currentEffect].slider);
   applyEffect();
 };
 
 imgEffects.addEventListener('change', onEffectChange);
+resetEffects();

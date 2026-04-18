@@ -73,3 +73,7 @@ export const openGalleryModal = (photo) => {
   renderComments(photo.comments);
   pictureModal.open();
 };
+
+closeButton.addEventListener('click', () => {
+  pictureModal.close();
+});

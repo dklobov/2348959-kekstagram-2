@@ -17,10 +17,19 @@ const request = async (route, method = Method.GET, body = null) => {
   if (!response.ok) {
     throw new Error(`Ошибка загрузки: ${response.status} ${response.statusText}`);
   }
-  if (method === Method.GET) return response.json();
+  if (method === Method.GET) {
+    return response.json();
+  }
 
   return response;
 };
 
-export const getPhotos = () => request(Route.GET_PHOTOS, Method.GET);
-export const sendForm = (formData) => request(Route.SEND_FORM, Method.POST, formData);
+export const getPhotos = () => request(
+  Route.GET_PHOTOS,
+  Method.GET
+);
+export const sendForm = (formData) => request(
+  Route.SEND_FORM,
+  Method.POST,
+  formData
+);

@@ -18,7 +18,9 @@ const setScaleButtonState = (button, isDisabled) => {
   button.style.pointerEvents = isDisabled ? 'none' : '';
   button.style.cursor = isDisabled ? 'default' : '';
 
-  if (isDisabled) {button.blur()}
+  if (isDisabled) {
+    button.blur();
+  }
 };
 
 const updateButtonsState = () => {
