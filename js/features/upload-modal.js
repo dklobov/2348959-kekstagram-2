@@ -1,30 +1,30 @@
 import { createModalController } from '../widgets/modal-controller.js';
 import { resetFormState } from '../form/form-submit.js';
-import { Messages } from '../core/data.js';
+import { Messages } from '../widgets/messages.js';
 
-const imgUpload = document.querySelector('.img-upload__overlay');
-const fileInput = document.querySelector('#upload-file');
-const imgPreview = document.querySelector('.img-upload__preview img');
-const closeButton = document.querySelector('.img-upload__cancel');
-const effectPreview = document.querySelectorAll('.effects__preview');
-const inputDescription = document.querySelector('.text__description');
-const inputHashtag = document.querySelector('.text__hashtags');
+const imgUploadElement = document.querySelector('.img-upload__overlay');
+const fileInputElement = document.querySelector('#upload-file');
+const imgPreviewElement = document.querySelector('.img-upload__preview img');
+const closeButtonElement = document.querySelector('.img-upload__cancel');
+const effectPreviewElement = document.querySelectorAll('.effects__preview');
+const inputDescriptionElement = document.querySelector('.text__description');
+const inputHashtagElement = document.querySelector('.text__hashtags');
 
-const defaultPreviewSrc = imgPreview.src;
+const defaultPreviewSrc = imgPreviewElement.src;
 
-const canClose = () => document.activeElement !== inputHashtag
-  && document.activeElement !== inputDescription
+const canClose = () => document.activeElement !== inputHashtagElement
+  && document.activeElement !== inputDescriptionElement
   && !document.querySelector(`.${Messages.ERROR}`);
 
 const uploadModal = createModalController({
-  modalElement: imgUpload,
-  closeButton,
+  modalElement: imgUploadElement,
+  closeButton: closeButtonElement,
   canClose,
   closeModal: () => {
     resetFormState();
-    fileInput.value = '';
-    imgPreview.src = defaultPreviewSrc;
-    effectPreview.forEach((preview) => {
+    fileInputElement.value = '';
+    imgPreviewElement.src = defaultPreviewSrc;
+    effectPreviewElement.forEach((preview) => {
       preview.style.backgroundImage = '';
     });
   }
@@ -32,14 +32,14 @@ const uploadModal = createModalController({
 
 const openUploadModal = uploadModal.open;
 
-fileInput.addEventListener('change', () => {
-  const file = fileInput.files[0];
+fileInputElement.addEventListener('change', () => {
+  const file = fileInputElement.files[0];
   if (!file) {
     return;
   }
   const imageUrl = URL.createObjectURL(file);
-  imgPreview.src = imageUrl;
-  effectPreview.forEach((preview) => {
+  imgPreviewElement.src = imageUrl;
+  effectPreviewElement.forEach((preview) => {
     preview.style.backgroundImage = `url(${imageUrl})`;
   });
 
