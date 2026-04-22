@@ -1,4 +1,4 @@
-import { picturesContainer } from './gallery-init.js';
+import { picturesContainerElement } from './gallery-init.js';
 
 const onePhotoTemplate = document
   .querySelector('#picture')
@@ -28,5 +28,5 @@ export const renderPhotos = (photos) => {
     onePhoto.dataset.id = photo.id;
     compiledPhotoCards.append(onePhoto);
   });
-  picturesContainer.append(compiledPhotoCards);
+  picturesContainerElement.append(compiledPhotoCards);
 };
