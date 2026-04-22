@@ -1,14 +1,12 @@
-import {
-  HASTAG_FORMULA,
-  MAX_COUNT_HASHTAGS,
-  MAX_DESCRIPTION
-} from '../core/data.js';
+const HASHTAG_FORMULA = /^#[a-zа-я0-9]{1,19}$/i;
+const MAX_COUNT_HASHTAGS = 5;
+const MAX_DESCRIPTION = 140;
 
-const form = document.querySelector('.img-upload__form');
-const description = form.querySelector('.text__description');
-const hashtagInput = form.querySelector('.text__hashtags');
+const formElement = document.querySelector('.img-upload__form');
+const descriptionElement = formElement.querySelector('.text__description');
+const hashtagInputElement = formElement.querySelector('.text__hashtags');
 
-const validation = new Pristine(form, {
+const validation = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
   errorTextParent: 'img-upload__field-wrapper',
@@ -23,7 +21,7 @@ const checkHashtags = (value) => {
     return true;
   }
   const hashtags = getHashtags(value);
-  return hashtags.every((item) => HASTAG_FORMULA.test(item));
+  return hashtags.every((item) => HASHTAG_FORMULA.test(item));
 };
 
 const checkHashtagsLength = (value) => {
@@ -43,25 +41,25 @@ const checkHashtagsUnique = (value) => {
 };
 
 validation.addValidator(
-  hashtagInput,
+  hashtagInputElement,
   checkHashtags,
   'Хештэг неверный'
 );
 
 validation.addValidator(
-  hashtagInput,
+  hashtagInputElement,
   checkHashtagsLength,
   `СТОПЭ! лимит ${MAX_COUNT_HASHTAGS} хештегов`
 );
 
 validation.addValidator(
-  hashtagInput,
+  hashtagInputElement,
   checkHashtagsUnique,
   'Хештеги не должны повторяться'
 );
 
 validation.addValidator(
-  description,
+  descriptionElement,
   checkDescription,
   `Длина комментария не должна превышать ${MAX_DESCRIPTION} символов`
 );

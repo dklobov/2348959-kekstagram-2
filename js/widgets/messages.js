@@ -1,13 +1,19 @@
-import { TIMEOUT_FIVESEC, Messages } from '../core/data.js';
 import { createModalController } from './modal-controller.js';
 
-const successTemplate = document.querySelector('#success').content.querySelector('.success');
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const body = document.body;
+export const Messages = {
+  SUCCESS: 'success',
+  ERROR: 'error'
+};
+
+export const TIMEOUT_FIVESEC = 5000;
+
+const successTemplateElement = document.querySelector('#success').content.querySelector('.success');
+const errorTemplateElement = document.querySelector('#error').content.querySelector('.error');
+const bodyElement = document.body;
 
 const templates = {
-  [Messages.SUCCESS]: successTemplate,
-  [Messages.ERROR]: errorTemplate
+  [Messages.SUCCESS]: successTemplateElement,
+  [Messages.ERROR]: errorTemplateElement
 };
 
 const renderMessageFromTemplate = (templateId) => {
@@ -16,23 +22,23 @@ const renderMessageFromTemplate = (templateId) => {
     return null;
   }
   const messageFragment = template.content.cloneNode(true);
-  const element = messageFragment.firstElementChild;
-  document.body.append(element);
-  return element;
+  const message = messageFragment.firstElementChild;
+  document.body.append(message);
+  return message;
 };
 
 export const showDataError = () => {
-  const messageElement = renderMessageFromTemplate('data-error');
-  if (!messageElement) {
+  const dataErrorMessage = renderMessageFromTemplate('data-error');
+  if (!dataErrorMessage) {
     return;
   }
-  setTimeout(() => messageElement.remove(), TIMEOUT_FIVESEC);
+  setTimeout(() => dataErrorMessage.remove(), TIMEOUT_FIVESEC);
 };
 
 export const showMessage = (type) => {
   const message = templates[type].cloneNode(true);
 
-  body.append(message);
+  bodyElement.append(message);
 
   const actionsMessage = createModalController({
     modalElement: message,

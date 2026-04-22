@@ -1,4 +1,4 @@
-import { DEBOUNCE_DELAY } from './data.js';
+export const DEBOUNCE_DELAY = 500;
 
 export const isEscape = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 

@@ -1,13 +1,12 @@
 import { sendForm } from '../core/api.js';
-import { Messages } from '../core/data.js';
-import { showMessage} from '../widgets/messages.js';
 import { resetScale } from '../features/upload-scale.js';
 import { resetEffects } from '../features/upload-effects.js';
 import { closeUploadModal } from '../features/upload-modal.js';
+import { Messages, showMessage } from '../widgets/messages.js';
 import { isValid, resetValidation } from './validation.js';
 
-const uploadForm = document.querySelector('.img-upload__form');
-const submitButton = uploadForm.querySelector('.img-upload__submit');
+const uploadFormElement = document.querySelector('.img-upload__form');
+const submitButtonElement = uploadFormElement.querySelector('.img-upload__submit');
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -15,23 +14,23 @@ const SubmitButtonText = {
 };
 
 const setSubmitButtonState = (isDisabled) => {
-  submitButton.disabled = isDisabled;
-  submitButton.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
+  submitButtonElement.disabled = isDisabled;
+  submitButtonElement.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
 };
 
-export function resetFormState () {
-  uploadForm.reset();
+export const resetFormState = () => {
+  uploadFormElement.reset();
   resetScale();
   resetEffects();
   resetValidation();
-}
+};
 
 const onFormSubmit = async (evt) => {
   evt.preventDefault();
   if (!isValid()) {
     return;
   }
-  const formData = new FormData(uploadForm);
+  const formData = new FormData(uploadFormElement);
 
   try {
     setSubmitButtonState(true);
@@ -45,4 +44,4 @@ const onFormSubmit = async (evt) => {
   }
 };
 
-uploadForm.addEventListener('submit', onFormSubmit);
+uploadFormElement.addEventListener('submit', onFormSubmit);

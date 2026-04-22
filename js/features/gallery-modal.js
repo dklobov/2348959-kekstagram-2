@@ -2,34 +2,34 @@ import { createModalController } from '../widgets/modal-controller.js';
 
 const STEP_COMMENTS = 5;
 
-const modalPicture = document.querySelector('.big-picture');
-const closeButton = modalPicture.querySelector('#picture-cancel');
-const fullPicture = modalPicture.querySelector('.big-picture__img img');
-const likesPicture = modalPicture.querySelector('.likes-count');
-const captionPicture = modalPicture.querySelector('.social__caption');
-const socialComments = modalPicture.querySelector('.social__comments');
-const commentsLoader = modalPicture.querySelector('.comments-loader');
-const commentsShownCount = modalPicture.querySelector('.social__comment-shown-count');
-const commentsTotalCount = modalPicture.querySelector('.social__comment-total-count');
-const socialCommentTemplate = socialComments.querySelector('.social__comment');
+const modalPictureElement = document.querySelector('.big-picture');
+const closeButtonElement = modalPictureElement.querySelector('#picture-cancel');
+const fullPictureElement = modalPictureElement.querySelector('.big-picture__img img');
+const likesPictureElement = modalPictureElement.querySelector('.likes-count');
+const captionPictureElement = modalPictureElement.querySelector('.social__caption');
+const socialCommentsElement = modalPictureElement.querySelector('.social__comments');
+const commentsLoaderElement = modalPictureElement.querySelector('.comments-loader');
+const commentsShownCountElement = modalPictureElement.querySelector('.social__comment-shown-count');
+const commentsTotalCountElement = modalPictureElement.querySelector('.social__comment-total-count');
+const socialCommentTemplateElement = socialCommentsElement.querySelector('.social__comment');
 
 let currentComments = [];
 let shownComments = 0;
 
 const pictureModal = createModalController({
-  modalElement: modalPicture,
-  closeButton,
+  modalElement: modalPictureElement,
+  closeButton: closeButtonElement,
 });
 
 const renderPhoto = (picture) => {
-  fullPicture.src = picture.url;
-  likesPicture.textContent = picture.likes;
-  captionPicture.textContent = picture.description;
-  commentsTotalCount.textContent = picture.comments.length;
+  fullPictureElement.src = picture.url;
+  likesPictureElement.textContent = picture.likes;
+  captionPictureElement.textContent = picture.description;
+  commentsTotalCountElement.textContent = picture.comments.length;
 };
 
 const renderLoader = () => {
-  commentsLoader.classList.toggle('hidden', shownComments >= currentComments.length);
+  commentsLoaderElement.classList.toggle('hidden', shownComments >= currentComments.length);
 };
 
 const renderCommentsPortion = () => {
@@ -39,7 +39,7 @@ const renderCommentsPortion = () => {
   currentComments
     .slice(shownComments, nextCount)
     .forEach(({ avatar, message, name }) => {
-      const li = socialCommentTemplate.cloneNode(true);
+      const li = socialCommentTemplateElement.cloneNode(true);
       const img = li.querySelector('.social__picture');
       const textComment = li.querySelector('.social__text');
 
@@ -51,13 +51,13 @@ const renderCommentsPortion = () => {
       shownComments++;
     });
 
-  socialComments.append(portionFragment);
-  commentsShownCount.textContent = shownComments;
+  socialCommentsElement.append(portionFragment);
+  commentsShownCountElement.textContent = shownComments;
   renderLoader();
 };
 
 const renderComments = (comments) => {
-  socialComments.innerHTML = '';
+  socialCommentsElement.innerHTML = '';
   currentComments = [...comments];
   shownComments = 0;
 
@@ -66,7 +66,7 @@ const renderComments = (comments) => {
 
 const onLoaderClick = () => renderCommentsPortion();
 
-commentsLoader.addEventListener('click', onLoaderClick);
+commentsLoaderElement.addEventListener('click', onLoaderClick);
 
 export const openGalleryModal = (photo) => {
   renderPhoto(photo);
@@ -74,6 +74,6 @@ export const openGalleryModal = (photo) => {
   pictureModal.open();
 };
 
-closeButton.addEventListener('click', () => {
+closeButtonElement.addEventListener('click', () => {
   pictureModal.close();
 });

@@ -1,6 +1,6 @@
 import { isEscape } from '../core/util.js';
 
-const body = document.body;
+const bodyElement = document.body;
 
 export const createModalController = ({
   modalElement,
@@ -14,7 +14,7 @@ export const createModalController = ({
 
   const close = () => {
     if (openClass) {
-      body.classList.remove(openClass);
+      bodyElement.classList.remove(openClass);
     }
     modalElement.classList.add(hiddenClass);
     if (closeModal) {
@@ -28,7 +28,7 @@ export const createModalController = ({
 
   const open = () => {
     if (openClass) {
-      body.classList.add(openClass);
+      bodyElement.classList.add(openClass);
     }
     modalElement.classList.remove(hiddenClass);
 

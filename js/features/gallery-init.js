@@ -1,12 +1,12 @@
 import { openGalleryModal } from './gallery-modal.js';
 
-export const picturesContainer = document.querySelector('.pictures');
+export const picturesContainerElement = document.querySelector('.pictures');
 
 let localPhotos;
 
 export const initGalleryModal = (photos) => (localPhotos = [...photos]);
 
-picturesContainer.addEventListener('click', (evt) => {
+picturesContainerElement.addEventListener('click', (evt) => {
   const thumbnailPicture = evt.target.closest('.picture');
   if(!thumbnailPicture) {
     return;
