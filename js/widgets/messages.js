@@ -22,15 +22,12 @@ const renderMessageFromTemplate = (templateId) => {
     return null;
   }
   const messageFragment = template.content.cloneNode(true);
-  // const element = messageFragment.firstElementChild;
   const message = messageFragment.firstElementChild;
   document.body.append(message);
   return message;
 };
 
 export const showDataError = () => {
-  // const messageElement = renderMessageFromTemplate('data-error');
-  // if (!messageElement) {
   const dataErrorMessage = renderMessageFromTemplate('data-error');
   if (!dataErrorMessage) {
     return;
