@@ -1,9 +1,16 @@
-import { FILTERS, RANDOM_LIMIT } from '../core/data.js';
 import { debounce } from '../core/util.js';
 import { renderPhotos } from './gallery-render.js';
 
-const imgFilters = document.querySelector('.img-filters');
-const form = document.querySelector('.img-filters__form');
+export const FILTERS = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed'
+};
+
+const RANDOM_LIMIT = 10;
+
+const imgFiltersElement = document.querySelector('.img-filters');
+const formElement = document.querySelector('.img-filters__form');
 
 let localPhotos;
 
@@ -11,7 +18,7 @@ const debouncedRender = debounce(renderPhotos);
 
 export const initFilters = (pictures) => {
   localPhotos = [...pictures];
-  imgFilters.classList.remove('img-filters--inactive');
+  imgFiltersElement.classList.remove('img-filters--inactive');
 };
 
 const setActiveButton = (button) => {
@@ -25,7 +32,7 @@ const filterPhotos = {
   [FILTERS.RANDOM]: () => [...localPhotos].sort(() => Math.random() - 0.5).slice(0, RANDOM_LIMIT)
 };
 
-form.addEventListener('click', ({ target }) => {
+formElement.addEventListener('click', ({ target }) => {
   const button = target.closest('.img-filters__button');
   if (button) {
     setActiveButton(button);
